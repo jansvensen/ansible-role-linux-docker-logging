@@ -1,0 +1,1 @@
+# ansible-role-linux-docker-logging

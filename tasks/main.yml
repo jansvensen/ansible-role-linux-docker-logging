@@ -27,11 +27,11 @@
 - name: Stop Docker container
   become: true
   shell: |
-    cd '{{ linux_logging_gitfolder }}\democloud-docker-logging'
+    cd '{{ linux_logging_gitfolder }}/democloud-docker-logging'
     docker-compose rm --stop --force
 
 - name: Create Docker container
   become: true
   shell: |
-    cd '{{ linux_logging_gitfolder }}\democloud-docker-logging'
+    cd '{{ linux_logging_gitfolder }}/democloud-docker-logging'
     docker-compose up -d

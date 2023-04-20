@@ -1,6 +1,7 @@
 ---
 - name: Install prerequisites
   ansible.builtin.apt:
+    become: yes
     name: '{{ item }}'
     state: present
   with_items: '{{ linux_logging_prerequisites }}'

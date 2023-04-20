@@ -1,43 +1,36 @@
 ---
 - name: Install prerequisites
-  become: true
-  shell: |
-    apt install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common \
-    git \
-    docker \
-    docker-compose \
-    docker.io
+  ansible.builtin.apt:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ linux_logging_prerequisites }}'
 
 - name: Remove old data
   become: true
   file:
-    path: /home/vagrant/git/
+    path: '{{ linux_logging_gitfolder }}'
     state: absent
 
 - name: Create GIT folder
   become: true
   file:
-    path: /home/vagrant/git/
+    path: '{{ linux_logging_gitfolder }}'
     state: directory
 
 - name: Clone github repository
   become: true
   shell: |
-    cd /home/vagrant/git/
-    git clone "https://github.com/deviceTRUST/democloud-docker-logging.git"
+    cd '{{ linux_logging_gitfolder }}'
+    git clone '{{ linux_logging_githubrepository }}'
 
 - name: Stop Docker container
   become: true
   shell: |
-    cd /home/vagrant/git/democloud-docker-logging
+    cd '{{ linux_logging_gitfolder }}\democloud-docker-logging'
     docker-compose rm --stop --force
 
 - name: Create Docker container
   become: true
   shell: |
-    cd /home/vagrant/git/democloud-docker-logging
+    cd '{{ linux_logging_gitfolder }}\democloud-docker-logging'
     docker-compose up -d

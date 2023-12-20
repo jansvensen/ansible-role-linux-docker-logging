@@ -35,9 +35,3 @@
   shell: |
     cd '{{ linux_logging_gitfolder }}/vagrant-ubuntu-docker-host'
     docker-compose up -d
-
-- name: Clone github dashboards repository
-  become: true
-  shell: |
-    cd '{{ linux_logging_gitfolder }}'
-    git clone '{{ linux_logging_apps_githubrepository }}'
